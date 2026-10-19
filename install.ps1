@@ -4,7 +4,7 @@ param([switch]$NoLaunch)
 $ErrorActionPreference='Stop'
 $releaseVersion='v0.2.0'
 $zipName='LBR-Compatibility-v0.2.0.zip'
-$expected='35c35fe3c1112666c577ab28eae8be32408d08d5c1f56e6b12f95c780862b770'
+$expected='f912fb16614e4315fcdc21929eec4dda5fc55c432d66f2d3ed6e91cb41432ad3'
 $url='https://github.com/yethinnanchu/low-budget-repairs-compatibility/releases/download/'+$releaseVersion+'/'+$zipName
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $base=Join-Path ([Environment]::GetFolderPath('LocalApplicationData')) 'LowBudgetRepairsCompatibility'
