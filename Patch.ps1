@@ -1,5 +1,5 @@
 param(
- [Parameter(Mandatory=$true)][ValidateSet('startup','trial1','trial2','trial3')][string]$Patch,
+ [Parameter(Mandatory=$true)][ValidateSet('startup','trial1','trial2','trial3','zbyszek-combined')][string]$Patch,
  [ValidateSet('Validate','Apply','Restore')][string]$Action='Validate',
  [Parameter(Mandatory=$true)][string]$GameFolder
 )

@@ -9,7 +9,15 @@ For owners of the exact Windows IL2CPP build of Low-Budget Repairs v1.7.17 made 
 - `trial2`: disables shadow casting on living Zbyszek's 12 renderers across detail levels. A test still encountered device removal while loading; this is not an established fix.
 - `trial3`: temporarily disables his hair and moustache renderers for diagnosis. This visibly removes those parts. Progress was possible with partial views and interaction, but the full-body freeze was not demonstrated to be fixed.
 
-The three character trials are alternatives, not cumulative patches. Restore one before applying another. These trials affect level3 (Zbyszek's apartment), not the broken-balcony scene.
+The character options are alternatives, not cumulative patches. Restore one before applying another. These trials affect level3 (Zbyszek's apartment), not the broken-balcony scene.
+
+## Living Zbyszek freeze and practical workaround
+
+On the tested Intel UHD 620 setup, directly looking at living Zbyszek near the start of the game—especially a full-body, head-on view—reproducibly froze the game. Looking away was stable; partial/side views were more reliable. Turning antialiasing off did not resolve it.
+
+The user was able to progress by keeping Zbyszek only minimally/partially visible and interacting from that angle. Approach while looking away, turn only enough to bring the interaction prompt into reach, and interact without centering his entire body or face-on view. This is a user-reported navigation workaround, not a guaranteed crash fix. Save beforehand where possible.
+
+The script also offers `zbyszek-combined`: it disables the living character's hair and moustache renderers and disables animated LOD crossfading, combining trial1 and trial3. It retains every LOD mesh, body/clothing renderer, animator and mission action. It does **not** remove the LOD system or the character. Expect missing hair/moustache and direct, potentially visible transitions between detail levels. The combined option has been validated structurally/hash-wise only; it has not been gameplay-tested and is not established to fix the freeze. The user's successful partial-view interaction used the earlier hair/moustache diagnostic patch, not a verified combined fix.
 
 ## How it helps — and its limits
 
@@ -28,6 +36,8 @@ Close the game. Open PowerShell in this folder and specify your installation pat
 ```
 
 Replace `startup` with `trial1`, `trial2`, or `trial3` for a diagnostic scene trial. `Validate` only checks hashes and computes the result in memory. `Apply` saves the original file into a local `backups` directory, checks expected bytes and hashes, and verifies the installed result. `Restore` reverses the selected patch after validating its exact patched hash. Already-applied/already-restored states are reported without rewriting files. Unknown files are refused.
+
+For the combined character option, use `-Patch zbyszek-combined`. If trial3 is installed, run `-Patch trial3 -Action Restore` first, then apply `zbyszek-combined`. Likewise restore any other installed scene trial first. The separate startup DLL patch can remain installed.
 
 Keep the backups. Back up your saves separately before testing. No game executable, DLL, asset file, save, credentials, machine-specific log, or driver is distributed here. You must supply your own matching installation. No affiliation with the game developer, Intel, or Unity is implied.
 

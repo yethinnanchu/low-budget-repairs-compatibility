@@ -1,0 +1,31 @@
+{
+  "trial": "Combined living Zbyszek hair/moustache renderer and LOD crossfade diagnostic",
+  "file": "LowBudgetRepairs_Data/level3",
+  "original_sha256": "9a9833af0a1f3bcaad37faa77987e26a86a9be272bc16e62f333feb5cd1d3abd",
+  "trial_sha256": "02c739bd5f0a8fe3ef251698decbaf9d0ab957df25d403c79ff1c44211226519",
+  "changes": [
+    {
+      "offset": 8534188,
+      "original": 1,
+      "trial": 0
+    },
+    {
+      "offset": 8534192,
+      "original": 1,
+      "trial": 0
+    },
+    {
+      "offset": 7546540,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66438
+    },
+    {
+      "offset": 7547564,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66439
+    }
+  ],
+  "status": "hash and Unity field validation passed; gameplay untested"
+}
