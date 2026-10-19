@@ -4,7 +4,7 @@ For owners of the exact Windows IL2CPP build of Low-Budget Repairs v1.7.17 made 
 
 ## What is included
 
-- `startup`: reproduces the existing two-byte GameAssembly.dll workaround that allowed this machine to get past startup and reach gameplay. At file offset 0x962FDE, `0F 84` becomes `90 E9`, converting a conditional branch into an unconditional branch to the same destination. This bypasses a block in the startup path. Its precise managed method has not been independently mapped in this package; do not treat it as a general shader or engine repair.
+- `startup`: reproduces the existing two-byte GameAssembly.dll workaround that allowed this machine to get past startup and reach gameplay. At file offset 0x962FDE, `0F 84` becomes `90 E9`, converting a conditional branch into an unconditional branch to the same destination. The exact mapped method is `LoadingSceneController.<PreloadShaders>d__6.MoveNext()` (RVA 0x9648C0). The branch at RVA 0x9649DE skips its graphics-state preload loop and goes to RVA 0x964F4A. See [DLL investigation](DLL-INVESTIGATION.md). This is not a general shader or engine repair.
 - `trial1`: disables animated LOD crossfading on living Zbyszek's LODGroup. All detail levels remain. Transitions can visibly pop. A test still encountered device removal while loading; this is not an established fix.
 - `trial2`: disables shadow casting on living Zbyszek's 12 renderers across detail levels. A test still encountered device removal while loading; this is not an established fix.
 - `trial3`: temporarily disables his hair and moustache renderers for diagnosis. This visibly removes those parts. Progress was possible with partial views and interaction, but the full-body freeze was not demonstrated to be fixed.
@@ -33,4 +33,4 @@ Keep the backups. Back up your saves separately before testing. No game executab
 
 ## Validation
 
-Character trial bytes were generated from parsed Unity renderer/LODGroup fields and the result reparsed before testing. Startup byte differences were compared against the preserved original DLL and inspected in native disassembly; complete IL2CPP method mapping is still outstanding. Packaging validation checks original-to-patched hashes for all four transformations, without modifying the installed game. Gameplay stability and compatibility remain experimental.
+Character trial bytes were generated from parsed Unity renderer/LODGroup fields and the result reparsed before testing. Startup byte differences were compared against the preserved original DLL, inspected in native disassembly and mapped using the matching metadata-v39 file. Packaging validation checks original-to-patched hashes for all four transformations, without modifying the installed game. Gameplay stability and compatibility remain experimental. Further investigation has not established an additional safe DLL optimization; no new DLL byte patch is included in the investigation update.
