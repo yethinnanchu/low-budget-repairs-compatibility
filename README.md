@@ -2,7 +2,7 @@
 
 A small Windows interface for reversible startup and character-rendering workarounds. **Experimental: not a general crash fix.**
 
-## Quick start
+## Quick start(For Legacy Devices & Offline Users)
 
 1. Download [LBR-Compatibility-v0.2.0.zip](https://github.com/yethinnanchu/low-budget-repairs-compatibility/releases/download/v0.2.0/LBR-Compatibility-v0.2.0.zip).
 2. Extract the entire ZIP into a permanent writable folder. Double-click `Launch.cmd`.
@@ -10,7 +10,7 @@ A small Windows interface for reversible startup and character-rendering workaro
 
 Close the game before applying/restoring. The interface shows what each option changes and reports incompatible files. No patch is applied automatically. Keep the tool's `backups` folder for recovery. Avoid extracting over an existing tool folder; keep its backups.
 
-### PowerShell one-line launcher
+### PowerShell one-line launcher(Recommended Use)
 
 ```powershell
 irm https://raw.githubusercontent.com/yethinnanchu/low-budget-repairs-compatibility/main/install.ps1 | iex
