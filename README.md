@@ -1,4 +1,26 @@
-# Low-Budget Repairs 1.7.17 — experimental Intel UHD 620 workarounds
+# Low-Budget Repairs Compatibility
+
+A small Windows interface for reversible startup and character-rendering workarounds. **Experimental: not a general crash fix.**
+
+## Quick start
+
+1. Download [LBR-Compatibility-v0.1.0.zip](https://github.com/yethinnanchu/low-budget-repairs-compatibility/releases/download/v0.1.0/LBR-Compatibility-v0.1.0.zip).
+2. Extract the entire ZIP into a permanent writable folder. Double-click `Launch.cmd`.
+3. Browse to `LowBudgetRepairs.exe`, select a workaround, and click **Validate**. Then choose **Apply** or **Restore**.
+
+Close the game before applying/restoring. The interface shows what each option changes and reports incompatible files. No patch is applied automatically. Keep the tool's `backups` folder for recovery. Avoid extracting over an existing tool folder; keep its backups.
+
+### PowerShell one-line launcher
+
+```powershell
+irm https://raw.githubusercontent.com/yethinnanchu/low-budget-repairs-compatibility/main/install.ps1 | iex
+```
+
+This downloads and executes the repository's installer, checks a pinned release ZIP's SHA256, extracts it to your local application-data folder and opens the interface. Review [install.ps1](install.ps1) before running if you prefer. A downloaded [LBR-Compatibility.cmd](https://github.com/yethinnanchu/low-budget-repairs-compatibility/releases/download/v0.1.0/LBR-Compatibility.cmd) provides the same online launcher. The ZIP works offline after download and is the better option when a system cannot reach GitHub.
+
+The launcher/interface target **Windows PowerShell 5.1**, avoiding a PowerShell 7 or Python dependency. Launch.cmd uses an execution-policy override for its own process only; it does not change system policy, request administrator privileges automatically, or install a service. Older systems still need PowerShell 5.1, .NET Windows Forms and compatible HTTPS for the online launcher. The game itself remains restricted to its own requirements; older Windows/gameplay compatibility has not been tested.
+
+## Supported game build
 
 For owners of the exact Windows IL2CPP build of Low-Budget Repairs v1.7.17 made with Unity 6000.3.22f1. Investigated on Intel UHD 620, 16 GB shared system memory and Intel driver 31.0.101.2145. Other builds and hardware are untested. Hash checks reject mismatched files.
 
