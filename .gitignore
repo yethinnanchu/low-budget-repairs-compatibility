@@ -1,0 +1,8 @@
+backups/
+*.dll
+*.exe
+*.dmp
+*.log
+*.lbr
+*.original
+trial*-level3

@@ -1,0 +1,21 @@
+{
+  "trial": "3 - diagnostic living Zbyszek hair and moustache disabled only",
+  "file": "LowBudgetRepairs_Data/level3",
+  "original_sha256": "9a9833af0a1f3bcaad37faa77987e26a86a9be272bc16e62f333feb5cd1d3abd",
+  "trial_sha256": "55ed66002d0c223414611c7a9739cc3b8f12e9ea465befcadaec88e6549c7c30",
+  "changes": [
+    {
+      "offset": 7546540,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66438
+    },
+    {
+      "offset": 7547564,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66439
+    }
+  ],
+  "status": "prepared; gameplay untested"
+}

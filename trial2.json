@@ -1,0 +1,81 @@
+{
+  "trial": "2 - living Zbyszek shadow casting only",
+  "file": "LowBudgetRepairs_Data/level3",
+  "original_sha256": "9a9833af0a1f3bcaad37faa77987e26a86a9be272bc16e62f333feb5cd1d3abd",
+  "trial_sha256": "4d29dd608ee7d4a97a8c26dfb631aedbac9ec2ebcc2353e28415af55d300339e",
+  "changes": [
+    {
+      "offset": 7536941,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66423
+    },
+    {
+      "offset": 7523501,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66404
+    },
+    {
+      "offset": 7525101,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66406
+    },
+    {
+      "offset": 7525389,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66407
+    },
+    {
+      "offset": 7545277,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66436
+    },
+    {
+      "offset": 7547565,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66439
+    },
+    {
+      "offset": 7546541,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66438
+    },
+    {
+      "offset": 7529549,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66414
+    },
+    {
+      "offset": 7541997,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66433
+    },
+    {
+      "offset": 7537773,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66426
+    },
+    {
+      "offset": 7526413,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66410
+    },
+    {
+      "offset": 7521645,
+      "original": 1,
+      "trial": 0,
+      "renderer": 66402
+    }
+  ],
+  "status": "prepared; gameplay untested"
+}

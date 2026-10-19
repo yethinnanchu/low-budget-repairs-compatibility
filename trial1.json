@@ -1,0 +1,20 @@
+{
+  "trial": "1 - Zbyszek LOD crossfade only",
+  "file": "LowBudgetRepairs_Data/level3",
+  "original_sha256": "9a9833af0a1f3bcaad37faa77987e26a86a9be272bc16e62f333feb5cd1d3abd",
+  "trial_sha256": "31c4abcb3c9714940f0e6bc2da73050f86d0217564680122a3a3e651aef0318f",
+  "changes": [
+    {
+      "offset": 8534188,
+      "original": 1,
+      "trial": 0
+    },
+    {
+      "offset": 8534192,
+      "original": 1,
+      "trial": 0
+    }
+  ],
+  "object_path_id": 67224,
+  "status": "prepared; gameplay untested"
+}

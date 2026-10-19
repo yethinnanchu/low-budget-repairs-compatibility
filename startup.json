@@ -1,0 +1,10 @@
+{
+  "trial": "Existing experimental startup branch bypass",
+  "file": "GameAssembly.dll",
+  "original_sha256": "8ce33b4061abdee4a3307a8baeba9e27f80304b2e929513b68bebad8c3cdc16d",
+  "trial_sha256": "31a92f17b08342baeb57171e4f8dbe3c17d6e5a92633fcd6e3e3bd812724cc12",
+  "changes": [
+    {"offset": 9842654, "original": 15, "trial": 144},
+    {"offset": 9842655, "original": 132, "trial": 233}
+  ]
+}
