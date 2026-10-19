@@ -2,16 +2,16 @@
 param([switch]$NoLaunch)
 # Online bootstrap. Review this file or use the offline ZIP instead.
 $ErrorActionPreference='Stop'
-$releaseVersion='v0.1.0'
-$zipName='LBR-Compatibility-v0.1.0.zip'
-$expected='1391119aea325f821c02ef8184a3c50e1d2b445886e1fc485d5a308ac9563e71'
+$releaseVersion='v0.2.0'
+$zipName='LBR-Compatibility-v0.2.0.zip'
+$expected='35c35fe3c1112666c577ab28eae8be32408d08d5c1f56e6b12f95c780862b770'
 $url='https://github.com/yethinnanchu/low-budget-repairs-compatibility/releases/download/'+$releaseVersion+'/'+$zipName
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $base=Join-Path ([Environment]::GetFolderPath('LocalApplicationData')) 'LowBudgetRepairsCompatibility'
 $staging=Join-Path $base ('downloads\'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $staging -Force | Out-Null
 $zip=Join-Path $staging $zipName
-Write-Host 'Downloading experimental compatibility tool v0.1.0...'
+Write-Host 'Downloading experimental compatibility tool v0.2.0...'
 Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $zip
 if((Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected){throw 'Release checksum mismatch. Nothing was launched.'}
 $extracted=Join-Path $staging 'package'

@@ -4,9 +4,9 @@ A small Windows interface for reversible startup and character-rendering workaro
 
 ## Quick start
 
-1. Download [LBR-Compatibility-v0.1.0.zip](https://github.com/yethinnanchu/low-budget-repairs-compatibility/releases/download/v0.1.0/LBR-Compatibility-v0.1.0.zip).
+1. Download [LBR-Compatibility-v0.2.0.zip](https://github.com/yethinnanchu/low-budget-repairs-compatibility/releases/download/v0.2.0/LBR-Compatibility-v0.2.0.zip).
 2. Extract the entire ZIP into a permanent writable folder. Double-click `Launch.cmd`.
-3. Browse to `LowBudgetRepairs.exe`, select a workaround, and click **Validate**. Then choose **Apply** or **Restore**.
+3. Browse to `LowBudgetRepairs.exe`, check one or more workarounds, and click **Validate**. Then choose **Apply** or **Restore**.
 
 Close the game before applying/restoring. The interface shows what each option changes and reports incompatible files. No patch is applied automatically. Keep the tool's `backups` folder for recovery. Avoid extracting over an existing tool folder; keep its backups.
 
@@ -16,7 +16,7 @@ Close the game before applying/restoring. The interface shows what each option c
 irm https://raw.githubusercontent.com/yethinnanchu/low-budget-repairs-compatibility/main/install.ps1 | iex
 ```
 
-This downloads and executes the repository's installer, checks a pinned release ZIP's SHA256, extracts it to your local application-data folder and opens the interface. Review [install.ps1](install.ps1) before running if you prefer. A downloaded [LBR-Compatibility.cmd](https://github.com/yethinnanchu/low-budget-repairs-compatibility/releases/download/v0.1.0/LBR-Compatibility.cmd) provides the same online launcher. The ZIP works offline after download and is the better option when a system cannot reach GitHub.
+This downloads and executes the repository's installer, checks a pinned release ZIP's SHA256, extracts it to your local application-data folder and opens the interface. Review [install.ps1](https://github.com/yethinnanchu/low-budget-repairs-compatibility/blob/main/install.ps1) before running if you prefer. A downloaded [LBR-Compatibility.cmd](https://github.com/yethinnanchu/low-budget-repairs-compatibility/releases/download/v0.2.0/LBR-Compatibility.cmd) provides the same online launcher. The ZIP works offline after download and is the better option when a system cannot reach GitHub.
 
 The launcher/interface target **Windows PowerShell 5.1**, avoiding a PowerShell 7 or Python dependency. Launch.cmd uses an execution-policy override for its own process only; it does not change system policy, request administrator privileges automatically, or install a service. Older systems still need PowerShell 5.1, .NET Windows Forms and compatible HTTPS for the online launcher. The game itself remains restricted to its own requirements; older Windows/gameplay compatibility has not been tested.
 
@@ -31,7 +31,7 @@ For owners of the exact Windows IL2CPP build of Low-Budget Repairs v1.7.17 made 
 - `trial2`: disables shadow casting on living Zbyszek's 12 renderers across detail levels. A test still encountered device removal while loading; this is not an established fix.
 - `trial3`: temporarily disables his hair and moustache renderers for diagnosis. This visibly removes those parts. Progress was possible with partial views and interaction, but the full-body freeze was not demonstrated to be fixed.
 
-The character options are alternatives, not cumulative patches. Restore one before applying another. These trials affect level3 (Zbyszek's apartment), not the broken-balcony scene.
+All options can now be combined. Apply adds checked changes to the current known state; Restore removes checked changes while preserving unrelated changes. Unchecking a box alone does not undo an installed patch. The combined hair/LOD option overlaps trial1 and trial3: its shared bytes apply once. Restoring it removes both features, including shared changes also selected through their individual options. These trials affect level3 (Zbyszek's apartment), not the broken-balcony scene. Combining them is supported by the tool; improved gameplay stability is not established.
 
 ## Living Zbyszek freeze and practical workaround
 
@@ -57,9 +57,17 @@ Close the game. Open PowerShell in this folder and specify your installation pat
 .\Patch.ps1 -Patch startup -Action Restore -GameFolder 'C:\Games\Low-Budget.Repairs.v1.7.17'
 ```
 
-Replace `startup` with `trial1`, `trial2`, or `trial3` for a diagnostic scene trial. `Validate` only checks hashes and computes the result in memory. `Apply` saves the original file into a local `backups` directory, checks expected bytes and hashes, and verifies the installed result. `Restore` reverses the selected patch after validating its exact patched hash. Already-applied/already-restored states are reported without rewriting files. Unknown files are refused.
+Replace `startup` with `trial1`, `trial2`, or `trial3` for a diagnostic scene trial. `Validate` checks the build and known current combination and computes the result in memory. `Apply` saves the normalized original into a local `backups` directory and verifies the installed result. `Restore` reverses selected changes. All affected files are checked before any game file is written. Unknown builds, unrelated edits and incomplete patch states are refused. Repeated apply/restore operations preserve the requested state. A normal write/verification error attempts rollback to the pre-operation files; backups remain essential for interruption or disk failures.
 
-For the combined character option, use `-Patch zbyszek-combined`. If trial3 is installed, run `-Patch trial3 -Action Restore` first, then apply `zbyszek-combined`. Likewise restore any other installed scene trial first. The separate startup DLL patch can remain installed.
+For the combined character option, use `-Patch zbyszek-combined`. Existing complete trial1/trial2/trial3 combinations are accepted directly without first restoring. From a PowerShell prompt, pass multiple names as an array:
+
+```powershell
+.\Patch.ps1 -Patch startup,trial1,trial2,trial3 -Action Apply -GameFolder 'C:\Games\Low-Budget.Repairs.v1.7.17'
+# Remove only character shadows-off; keep startup, LOD and hair changes:
+.\Patch.ps1 -Patch trial2 -Action Restore -GameFolder 'C:\Games\Low-Budget.Repairs.v1.7.17'
+```
+
+The v0.2.0 package needs Engine.ps1 beside Patch.ps1; extract the entire ZIP. Tests on copies under Windows PowerShell 5.1 cover all eight scene combinations, repeated application, overlapping selections, selective restore and rejection of partial states before writes. Your installed game is not changed by tool tests.
 
 Keep the backups. Back up your saves separately before testing. No game executable, DLL, asset file, save, credentials, machine-specific log, or driver is distributed here. You must supply your own matching installation. No affiliation with the game developer, Intel, or Unity is implied.
 

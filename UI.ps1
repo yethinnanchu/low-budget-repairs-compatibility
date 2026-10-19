@@ -9,11 +9,11 @@ $choices=@(
  @{Id='trial1';Title='Experimental: Zbyszek LOD crossfade off';Details='Keeps all character detail levels; disables transition blending. Not a confirmed freeze fix.'},
  @{Id='trial2';Title='Experimental: Zbyszek shadows off';Details='Disables shadow casting on the living character. Not a confirmed freeze fix.'},
  @{Id='trial3';Title='Experimental: Zbyszek hair / moustache off';Details='Temporarily removes hair and moustache renderers. User progressed using partial views; full-body freeze not established as fixed.'},
- @{Id='zbyszek-combined';Title='Experimental: hair + LOD crossfade off';Details='Combines hair/moustache removal with crossfade disabled. All LOD meshes remain. Gameplay untested. Restore any other scene trial first.'}
+ @{Id='zbyszek-combined';Title='Experimental: hair + LOD crossfade off';Details='Combines hair/moustache removal with crossfade disabled. All LOD meshes remain. Gameplay untested. Overlapping checked options apply only once.'}
 )
 $form=New-Object System.Windows.Forms.Form
-$form.Text='Low-Budget Repairs Compatibility | v0.1.0 experimental'
-$form.ClientSize=New-Object System.Drawing.Size(760,570)
+$form.Text='Low-Budget Repairs Compatibility | v0.2.0 experimental'
+$form.ClientSize=New-Object System.Drawing.Size(760,670)
 $form.StartPosition='CenterScreen'
 $form.FormBorderStyle='FixedDialog'
 $form.MaximizeBox=$false
@@ -34,35 +34,37 @@ $browse.Add_Click({
  if($dialog.ShowDialog() -eq 'OK'){$folder.Text=[IO.Path]::GetDirectoryName($dialog.FileName)}
  $dialog.Dispose()
 })
-$null=Label '2. Select a workaround' 24 182 710 24
-$select=New-Object System.Windows.Forms.ComboBox
-$select.DropDownStyle='DropDownList';$select.SetBounds(24,212,712,32)
+$null=Label '2. Check one or more workarounds; click a row to read its description' 24 182 710 24
+$select=New-Object System.Windows.Forms.CheckedListBox
+$select.CheckOnClick=$true;$select.SetBounds(24,212,712,135)
 foreach($c in $choices){$null=$select.Items.Add($c.Title)}
 $form.Controls.Add($select)
-$details=Label '' 24 258 712 74
+$details=Label '' 24 358 712 74
 $select.Add_SelectedIndexChanged({$details.Text=$choices[$select.SelectedIndex].Details})
 $select.SelectedIndex=0
-$null=Label '3. Check first, then apply or restore. Close the game before changing files.' 24 338 712 25
+$select.SetItemChecked(0,$true)
+$null=Label '3. Apply adds checked options. Restore removes checked options; others stay.' 24 438 712 25
 $log=New-Object System.Windows.Forms.TextBox
-$log.Multiline=$true;$log.ReadOnly=$true;$log.ScrollBars='Vertical';$log.SetBounds(24,414,712,126)
+$log.Multiline=$true;$log.ReadOnly=$true;$log.ScrollBars='Vertical';$log.SetBounds(24,514,712,126)
 $form.Controls.Add($log)
 $script:buttons=@()
 foreach($mode in @('Validate','Apply','Restore')){
  $button=New-Object System.Windows.Forms.Button
- $button.Text=$mode;$button.Tag=$mode;$button.SetBounds((24+($script:buttons.Count*170)),370,155,34)
+ $button.Text=$mode;$button.Tag=$mode;$button.SetBounds((24+($script:buttons.Count*170)),470,155,34)
  $button.Add_Click({
   $action=$this.Tag
   foreach($b in $script:buttons){$b.Enabled=$false}
   $form.UseWaitCursor=$true
   try{
    if(!(Test-Path -LiteralPath (Join-Path $folder.Text 'LowBudgetRepairs.exe'))){throw 'Select the game installation folder first.'}
-   $id=$choices[$select.SelectedIndex].Id
-   $log.Text="Checking $id..."
+   $ids=@($select.CheckedIndices | ForEach-Object {$choices[$_].Id})
+   if(!$ids.Count){throw 'Check at least one workaround.'}
+   $log.Text='Checking '+($ids -join ', ')+'...'
    $form.Refresh()
-   $result=& (Join-Path $PSScriptRoot 'Patch.ps1') -Patch $id -Action $action -GameFolder $folder.Text
+   $result=& (Join-Path $PSScriptRoot 'Patch.ps1') -Patch $ids -Action $action -GameFolder $folder.Text
    $log.Text=($result -join [Environment]::NewLine)+[Environment]::NewLine+'Original backups are kept in the backups folder beside this tool.'
   }catch{
-   $log.Text=$_.Exception.Message+[Environment]::NewLine+'If another scene trial is installed, restore that trial first. Unknown game builds are refused.'
+   $log.Text=$_.Exception.Message+[Environment]::NewLine+'Only known complete combinations on the exact game build are accepted.'
   }finally{
    foreach($b in $script:buttons){$b.Enabled=$true};$form.UseWaitCursor=$false
   }
